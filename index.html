@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist</title>
+    <style>
+    .timer {
+        max-width: 420px;
+        margin: 32px auto;
+        padding: 24px;
+        text-align: center;
+        color: #fff;
+        background: linear-gradient(135deg, #4527a0, #7b1fa2);
+        border: 3px solid #d1c4e9;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgb(69 39 160 / 30%);
+        animation: timer-glow 2.5s ease-in-out infinite;
+    }
+
+    .timer h3 {
+        margin: 0 0 12px;
+        font-size: 1.5rem;
+    }
+    .clear-checklist {
+        display: block;
+        margin: 18px auto;
+        padding: 11px 18px;
+        color: #fff;
+        background: #6a1b9a;
+        border: 0;
+        border-radius: 10px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.2s;
+    }
+
+    .clear-checklist:hover {
+        background: #4527a0;
+        transform: translateY(-2px);
+    }
+
+    .clear-checklist:focus-visible {
+        outline: 3px solid #b39ddb;
+        outline-offset: 3px;
+    }
+    #timerDisplay {
+        margin: 12px 0 20px;
+        font-size: clamp(3rem, 12vw, 5rem);
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: 0.08em;
+    }
+
+    .timer button {
+        margin: 4px;
+        padding: 10px 18px;
+        color: #4527a0;
+        background: #fff;
+        border: 0;
+        border-radius: 10px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .timer button:hover:not(:disabled) {
+        background: #ede7f6;
+        transform: translateY(-2px);
+    }
+
+    .timer button:focus-visible {
+        outline: 3px solid #ffeb3b;
+        outline-offset: 3px;
+    }
+
+    .timer button:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+    }
+
+    @keyframes timer-glow {
+        50% {
+            box-shadow: 0 10px 38px rgb(69 39 160 / 50%);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .timer {
+            animation: none;
+        }
+    }
+    * {
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 20px;
+    color: #27233a;
+    background: #f5f3fb;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.6;
+}
+
+h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 0 auto 24px;
+    padding: 20px;
+    color: #4527a0;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgb(69 39 160 / 10%);
+}
+
+#lessonDuration {
+    width: 110px;
+    padding: 8px 10px;
+    color: #27233a;
+    border: 2px solid #d1c4e9;
+    border-radius: 8px;
+    font: inherit;
+}
+
+#lessonDuration:focus {
+    border-color: #7b1fa2;
+    outline: 3px solid rgb(123 31 162 / 15%);
+}
+
+ul {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul li {
+    padding: 16px 18px;
+    background: #fff;
+    border: 1px solid #e6e0f0;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgb(39 35 58 / 5%);
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+ul li:hover {
+    border-color: #b39ddb;
+    transform: translateY(-2px);
+}
+
+ul li input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin: 0 10px 0 0;
+    vertical-align: middle;
+    accent-color: #6a1b9a;
+    cursor: pointer;
+}
+
+ul li p {
+    margin: 8px 0 0 30px;
+    color: #625d70;
+}
+
+.forTeacher {
+    margin-top: 32px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e6e0f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgb(69 39 160 / 8%);
+}
+
+.forTeacher h3 {
+    margin: 18px 0 6px;
+    color: #6a1b9a;
+}
+
+.forTeacher h3:first-child {
+    margin-top: 0;
+}
+
+.forTeacher p {
+    margin: 0;
+    color: #514d5e;
+}
+
+@media (max-width: 600px) {
+    body {
+        width: 100%;
+        padding: 18px 12px;
+        font-size: 0.95rem;
+    }
+
+    h2 {
+        gap: 8px;
+        padding: 16px 12px;
+        font-size: 1.15rem;
+        text-align: center;
+    }
+
+    #lessonDuration {
+        width: 100px;
+        min-height: 44px;
+    }
+
+    ul {
+        gap: 10px;
+    }
+
+    ul li {
+        padding: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    ul li input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+    }
+
+    ul li p {
+        margin-left: 0;
+    }
+
+    .timer {
+        width: 100%;
+        margin: 24px auto;
+        padding: 20px 14px;
+    }
+
+    .timer button {
+        min-height: 44px;
+        margin: 4px 2px;
+        padding: 10px 14px;
+    }
+
+    .forTeacher {
+        margin-top: 24px;
+        padding: 18px 14px;
+    }
+}
+
+@media (max-width: 380px) {
+    .timer button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    #timerDisplay {
+        font-size: 3rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+    <h2>Тривалість уроку <input type="number" id="lessonDuration"></h2>
+    <ul>
+        <li><input type="checkbox"> Актуалізація знань<p>пригадати, що вчили на попередньому заняття. Задати кілька запитань.Розбір ДЗ</p></li>
+        <li><input type="checkbox"> Введення в урок<p>Озвучити тему, назвати основні цілі(тему уроку можна побачити в календарі ЛМС )</p></li>
+        <li><input type="checkbox"> Активність учнів<p>Тише не повинна бути довша за 22% <span id="lesson22"></span> від тривалості уроку</p></li>
+        <li><input type="checkbox"> Проведемо підсумки<p> задати кілька запитання по пройдено матеріалу</p>
+        <li><input type="checkbox"> Домашнє завдання<p> показати завдання в ЛМС, перепитати чи все зрозуміло</p>
+        <li><input type="checkbox"> Озвучити тему наступного уроку<p> розказатии, що будуть вчитит на наступному занятті(тему можна підглянути в календарі)</p>
+    </ul>
+    <button type="button" id="clearCheckboxes" class="clear-checklist">
+    Зняти всі галочки
+</button>
+    <section class="timer">
+        <h3>Таймер</h3>
+    <p id="timerDisplay" role="timer" aria-live="off">00:00</p>
+    <button type="button" id="startTimer">Старт</button>
+    <button type="button" id="pauseTimer" disabled>Пауза</button>
+    <button type="button" id="resetTimer">Скинути</button>
+    </section>
+    <section class="forTeacher">
+        <h3>Використання похвали</h3>
+        <p>10 — Похвала різноманітна з поясненням, за що хвалять, і словами від себе, наприклад**:** ”Чудово розв’язали це рівняння, ви справді зрозуміли концепцію!” ”Я бачу, що ви наполегливо працювали над цим” ”Мені подобається, як ви підійшли до цієї задачі!” </p>
+        
+        <h3>Діалог із учнями</h3>
+        <p>10 — Викладач активно підтримує діалог із учнями: ставить відкриті або уточнювальні запитання, реагує на відповіді, заохочує обговорення та висловлення думок. 0 — Викладач говорить односторонньо, без запитань до учнів або реакцій на їхні відповіді; присутні лише організаційні чи риторичні фрази.</p>
+        
+        <h3>Позитивні реакції учнів</h3>
+        <p>10 — Учні демонструють захоплення від уроку: кажуть “класно”, “мені сподобалось”, “Все вийшло!”, активно реагують або беруть участь із зацікавленням. </p>
+    </section>
+    <script>
+    const lessonDurationInput = document.getElementById("lessonDuration");
+    const timerDisplay = document.getElementById("timerDisplay");
+    const startButton = document.getElementById("startTimer");
+    const pauseButton = document.getElementById("pauseTimer");
+    const resetButton = document.getElementById("resetTimer");
+
+    let remainingMs = 0;
+    let startedAt = 0;
+    let timerInterval = null;
+
+    function getDurationMs() {
+        const lessonMinutes = Number(lessonDurationInput.value);
+        return lessonMinutes > 0 ? lessonMinutes * 0.17 * 60 * 1000 : 0;
+    }
+
+    function updateDisplay(milliseconds) {
+        const totalSeconds = Math.ceil(milliseconds / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+
+        timerDisplay.textContent =
+            `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+    }
+
+    function stopTimer() {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        startButton.disabled = false;
+        pauseButton.disabled = true;
+        lessonDurationInput.disabled = false;
+    }
+
+    function tick() {
+        remainingMs = Math.max(0, remainingMs - (Date.now() - startedAt));
+        startedAt = Date.now();
+        updateDisplay(remainingMs);
+
+        if (remainingMs <= 0) {
+            stopTimer();
+        }
+    }
+
+    startButton.addEventListener("click", () => {
+        if (timerInterval) return;
+
+        if (remainingMs <= 0) {
+            remainingMs = getDurationMs();
+        }
+
+        if (remainingMs <= 0) {
+            timerDisplay.textContent = "Введіть тривалість уроку";
+            return;
+        }
+
+        lessonDurationInput.disabled = true;
+        startButton.disabled = true;
+        pauseButton.disabled = false;
+        startedAt = Date.now();
+        updateDisplay(remainingMs);
+        timerInterval = setInterval(tick, 250);
+    });
+
+    pauseButton.addEventListener("click", () => {
+        tick();
+        stopTimer();
+    });
+
+    resetButton.addEventListener("click", () => {
+        stopTimer();
+        remainingMs = getDurationMs();
+        updateDisplay(remainingMs);
+    });
+
+    lessonDurationInput.addEventListener("input", () => {
+        if (!timerInterval) {
+            remainingMs = getDurationMs();
+            updateDisplay(remainingMs);
+        }
+    });
+    document.getElementById("clearCheckboxes").addEventListener("click", () => {
+    document.querySelectorAll('ul input[type="checkbox"]').forEach((checkbox) => {
+        checkbox.checked = false;
+        });
+    });
+    updateDisplay(getDurationMs());
+</script>
+</body>
+</html>
